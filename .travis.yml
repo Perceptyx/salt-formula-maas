@@ -4,18 +4,18 @@ services:
 
 jobs:
   include:
-    - name: "Ubuntu Trusty"
-      os: linux
-      dist: trusty
-      python: 2.7
     - name: "Ubuntu Xenial"
       os: linux
       dist: xenial
-      python: 3
+      python: 3.6
+      env:
+        PLATFORM=ubuntu-16.04
     - name: "Ubuntu Bionic"
       os: linux
       dist: bionic
-      python: 3
+      python: 3.6
+      env:
+        PLATFORM=ubuntu-18.04
 
 addons:
   apt:

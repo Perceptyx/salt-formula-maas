@@ -46,6 +46,11 @@ provisioner:
       repo: git
       source: https://github.com/salt-formulas/salt-formula-rsyslog
 
+platforms:
+  - name: <%=ENV['PLATFORM'] ||  'ubuntu-18.04' %>
+    driver_config:
+      platform: ubuntu
+
 verifier:
   name: inspec
   sudo: true
