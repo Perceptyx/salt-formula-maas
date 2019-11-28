@@ -3,7 +3,7 @@
 
 maas_region_packages:
   pkg.installed:
-    - names: {{ region.pkgs }}
+    - names: {{ region.pkgs|tojson }}
 
 /etc/maas/regiond.conf:
   file.managed:
@@ -109,6 +109,7 @@ maas_apache_headers:
   - require:
     - pkg: maas_region_packages
 
+
 Configure /root/.pgpass for MAAS:
   file.managed:
   - name: /root/.pgpass
@@ -121,7 +122,7 @@ Configure /root/.pgpass for MAAS:
 maas_region_services:
   service.running:
   - enable: true
-  - names: {{ region.services }}
+  - names: {{ region.services|tojson }}
   - require:
     - cmd: maas_region_syncdb
   - watch:

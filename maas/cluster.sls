@@ -36,7 +36,7 @@ maas_setup_admin:
 
 maas_cluster_packages:
   pkg.installed:
-    - names: {{ cluster.pkgs }}
+    - names: {{ cluster.pkgs|tojson }}
 
 /etc/maas/rackd.conf:
   file.line:
@@ -62,7 +62,7 @@ maas_cluster_packages:
 maas_cluster_services:
   service.running:
   - enable: true
-  - names: {{ cluster.services }}
+  - names: {{ cluster.services|tojson }}
   - require:
     - file: /etc/maas/rackd.conf
   - watch:

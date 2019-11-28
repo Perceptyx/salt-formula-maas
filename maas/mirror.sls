@@ -6,7 +6,7 @@
 
 maas_mirror_packages:
   pkg.installed:
-    - names: {{ mirror.pkgs }}
+    - names: {{ mirror.pkgs|tojson }}
 
 {%- for section_name, section in mirror.image.sections.iteritems() %}
 {%- if pillar.maas.region is defined and pillar.maas.region.maas_config.http_proxy is defined and pillar.maas.region.maas_config.get('enable_http_proxy', False) %}
@@ -42,4 +42,3 @@ mirror_image_{{ section_name }}:
 {%- endif %}
 
 {%- endif %}
-
