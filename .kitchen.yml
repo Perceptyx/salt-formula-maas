@@ -46,14 +46,6 @@ provisioner:
       repo: git
       source: https://github.com/salt-formulas/salt-formula-rsyslog
 
-
-platforms:
-  - name: <%=ENV['PLATFORM'] ||  'saltstack-ubuntu-xenial-salt-stable' %>
-    driver_config:
-      image: <%=ENV['PLATFORM'] || 'epcim/salt-formulas:saltstack-ubuntu-xenial-salt-stable'%>
-      platform: ubuntu
-
-
 verifier:
   name: inspec
   sudo: true
