@@ -7,12 +7,15 @@ jobs:
     - name: "Ubuntu Trusty"
       os: linux
       dist: trusty
+      python: 2.7
     - name: "Ubuntu Xenial"
       os: linux
       dist: xenial
+      python: 3
     - name: "Ubuntu Bionic"
       os: linux
       dist: bionic
+      python: 3
 
 addons:
   apt:
