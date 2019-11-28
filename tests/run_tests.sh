@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-set -x
-
 ###
 # Script requirments:
 #apt-get install -y python-yaml virtualenv git

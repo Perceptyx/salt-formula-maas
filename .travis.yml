@@ -32,6 +32,9 @@ install:
 
 before_script:
   - set -o pipefail
+  - python -V
+  - which python
+  - mv $(which python3) $(which python)
   - make test
 
 script:
