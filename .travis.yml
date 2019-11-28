@@ -23,6 +23,7 @@ addons:
     - apt-transport-https
 
 install:
+  #- apt-get install -y python-yaml virtualenv git
   - pip install PyYAML
   - pip install virtualenv
   - |
@@ -33,7 +34,7 @@ install:
 
 before_script:
   - set -o pipefail
-  - make test | tail
+  - make test
 
 script:
   - test ! -e .kitchen.yml || bundle exec kitchen converge ${SUITE} || true
