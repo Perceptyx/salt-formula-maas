@@ -15,7 +15,7 @@ install:
   - pip install virtualenv
   - |
     if [ ! -e Gemfile ]; then
-       curl -s -o ./Gemfile 'https://gerrit.mcp.mirantis.com/gitweb?p=salt-formulas/salt-formulas-scripts.git;a=blob_plain;f=Gemfile;hb=refs/heads/master'
+       curl -s -o ./Gemfile 'https://raw.githubusercontent.com/salt-formulas/salt-formulas-scripts/master/Gemfile'
     fi
   - bundle install
 
