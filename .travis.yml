@@ -23,9 +23,7 @@ addons:
     - apt-transport-https
 
 install:
-  #- apt-get install -y python-yaml virtualenv git
   - pip install PyYAML
-  - pip install virtualenv
   - |
     if [ ! -e Gemfile ]; then
        curl -s -o ./Gemfile 'https://raw.githubusercontent.com/salt-formulas/salt-formulas-scripts/master/Gemfile'
