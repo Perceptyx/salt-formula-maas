@@ -134,7 +134,7 @@ maas_region_services:
 maas_region_syncdb:
   cmd.run:
   - names:
-    - maas-region syncdb --noinput
+    - maas-region dbupgrade
   - require:
     - file: /etc/maas/regiond.conf
   {%- if grains['saltversioninfo'][0] >= 2017 and grains['saltversioninfo'][1] >= 7 %}
