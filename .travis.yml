@@ -1,17 +1,17 @@
 language: python
-python:
-- "2.7.13"
-sudo: required
 services:
   - docker
 
-matrix:
+jobs:
   include:
-    - os: linux
+    - name: "Ubuntu Trusty"
+      os: linux
       dist: trusty
-    - os: linux
+    - name: "Ubuntu Xenial"
+      os: linux
       dist: xenial
-    - os: linux
+    - name: "Ubuntu Bionic"
+      os: linux
       dist: bionic
 
 addons:
