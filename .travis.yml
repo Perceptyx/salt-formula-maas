@@ -8,13 +8,13 @@ jobs:
       dist: xenial
       python: 3.6
       env:
-        PLATFORM=ubuntu-16.04
+        PLATFORM=ubuntu-1604
     - name: "Ubuntu Bionic"
       os: linux
       dist: bionic
       python: 3.6
       env:
-        PLATFORM=ubuntu-18.04
+        PLATFORM=ubuntu-1804
 
 addons:
   apt:
@@ -30,4 +30,5 @@ install:
 
 script:
   # Run the suites for the same platform that we are running for better visibility
+  - bundle exec kitchen list
   - bundle exec kitchen converge .*${PLATFORM}
