@@ -29,4 +29,5 @@ install:
   - bundle install
 
 script:
-  - bundle exec kitchen converge *${PLATFORM}
+  # Run the suites for the same platform that we are running for better visibility
+  - bundle exec kitchen converge .*${PLATFORM}
