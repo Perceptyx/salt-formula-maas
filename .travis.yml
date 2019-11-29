@@ -3,13 +3,13 @@ services:
 
 jobs:
   include:
-    - name: "Ubuntu Xenial"
+    - name: "Ubuntu Xenial (16.04)"
       os: linux
       dist: xenial
       python: 3.6
       env:
         PLATFORM=ubuntu-16.04
-    - name: "Ubuntu Bionic"
+    - name: "Ubuntu Bionic (18.04)"
       os: linux
       dist: bionic
       python: 3.6
@@ -29,6 +29,4 @@ install:
   - bundle install
 
 script:
-  # Run the suites for the same platform that we are running for better visibility
-  - bundle exec kitchen list
-  - bundle exec kitchen converge .*${PLATFORM//.}
+  - bundle exec kitchen converge
