@@ -20,7 +20,6 @@ addons:
   apt:
     packages:
     - apt-transport-https
-    - git
 
 install:
   - |
@@ -30,4 +29,4 @@ install:
   - bundle install
 
 script:
-  - bundle exec kitchen converge ${SUITE}
+  - bundle exec kitchen converge ${PLATFORM}
