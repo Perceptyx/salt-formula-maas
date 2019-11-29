@@ -1,6 +1,6 @@
 maas:
   region:
-    theme: theme
+    theme: mirantis
     bind:
       host: localhost
       port: 80

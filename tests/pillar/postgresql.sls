@@ -15,6 +15,6 @@ postgresql:
         users:
         - name: maas
           password: password
-          host: localhost
+          host: 127.0.0.1
           createdb: true
           rights: all privileges

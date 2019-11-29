@@ -2,9 +2,7 @@
 driver:
   name: docker
   hostname: maas.ci.local
-  #socket: tcp://127.0.0.1:2376
   use_sudo: false
-  run_options: -v /dev/log:/dev/log:ro
 
 provisioner:
   name: salt_solo
@@ -20,14 +18,15 @@ provisioner:
   state_top:
     base:
       "*":
+        - linux
         - postgresql
         - maas
   pillars:
     top.sls:
       base:
         "*":
-          - postgresql
           - linux
+          - postgresql
           - maas
 
   pillars-from-files:
@@ -49,9 +48,17 @@ provisioner:
 platforms:
   - name: <%=ENV['PLATFORM'] ||  'ubuntu-18.04' %>
     driver_config:
+      run_command: /sbin/init
+      cap_add:
+        - SYS_ADMIN
+      run_options:
+        env: container=docker
+      volume:
+        - /sys/fs/cgroup:/sys/fs/cgroup
       platform: ubuntu
       provision_command:
-        - apt-get clean && rm -rf /var/lib/apt/lists/* && apt-get update && apt-get install -y git
+        - apt-get clean && rm -rf /var/lib/apt/lists/* && apt-get update && apt-get install -y git language-pack-en
+        - localedef -i en_US -f UTF-8 en_US.UTF-8
 
 verifier:
   name: inspec
@@ -77,5 +84,8 @@ suites:
     provisioner:
       pillars-from-files:
         maas.sls: tests/pillar/maas_region.sls
+    driver_config:
+      forward:
+        - 5240:5240
 
 # vim: ft=yaml sw=2 ts=2 sts=2 tw=125

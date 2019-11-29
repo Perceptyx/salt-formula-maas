@@ -73,6 +73,10 @@ maas_apache_headers:
 
 {%- endif %}
 
+{#
+
+Disabling this for now, it should be moved to Pillars and have a macro or for here
+
 /etc/maas/preseeds/curtin_userdata_amd64_generic_trusty:
   file.managed:
   - source: salt://maas/files/curtin_userdata_amd64_generic_trusty
@@ -108,16 +112,7 @@ maas_apache_headers:
       salt_master_ip: {{ region.salt_master_ip }}
   - require:
     - pkg: maas_region_packages
-
-
-Configure /root/.pgpass for MAAS:
-  file.managed:
-  - name: /root/.pgpass
-  - source: salt://maas/files/pgpass
-  - template: jinja
-  - user: root
-  - group: root
-  - mode: 600
+#}
 
 maas_region_services:
   service.running:
@@ -127,14 +122,11 @@ maas_region_services:
     - cmd: maas_region_syncdb
   - watch:
     - file: /etc/maas/regiond.conf
-  {%- if grains.get('kitchen-test') %}
-  - onlyif: /bin/false
-  {%- endif %}
 
 maas_region_syncdb:
   cmd.run:
   - names:
-    - maas-region dbupgrade
+    - maas-region migrate
   - require:
     - file: /etc/maas/regiond.conf
   {%- if grains['saltversioninfo'][0] >= 2017 and grains['saltversioninfo'][1] >= 7 %}
@@ -142,9 +134,6 @@ maas_region_syncdb:
     attempts: 3
     interval: 5
     splay: 5
-  {%- endif %}
-  {%- if grains.get('kitchen-test') %}
-  - onlyif: /bin/false
   {%- endif %}
 
 maas_warmup:
@@ -157,9 +146,6 @@ maas_warmup:
   - expected: [200, 405]
   - require_in:
     - module: maas_set_admin_password
-  {%- if grains.get('kitchen-test') %}
-  - onlyif: /bin/false
-  {%- endif %}
 
 maas_set_admin_password:
   cmd.run:
@@ -167,18 +153,12 @@ maas_set_admin_password:
   - creates: /var/lib/maas/.setup_admin
   - require:
     - service: maas_region_services
-  {%- if grains.get('kitchen-test') %}
-  - onlyif: /bin/false
-  {%- endif %}
 
 maas_login_admin:
   cmd.run:
   - name: "maas-region apikey --username {{ region.admin.username }} > /var/lib/maas/.maas_credentials"
   - require:
     - cmd: maas_set_admin_password
-  {%- if grains.get('kitchen-test') %}
-  - onlyif: /bin/false
-  {%- endif %}
 
 maas_wait_for_racks_import_done:
   module.run:
@@ -187,9 +167,6 @@ maas_wait_for_racks_import_done:
     - cmd: maas_login_admin
   - require_in:
     - module: maas_config
-  {%- if grains.get('kitchen-test') %}
-  - onlyif: /bin/false
-  {%- endif %}
 
 maas_wait_for_region_import_done:
   module.run:
@@ -200,18 +177,12 @@ maas_wait_for_region_import_done:
     - cmd: maas_login_admin
   - require_in:
     - module: maas_wait_for_racks_import_done
-  {%- if grains.get('kitchen-test') %}
-  - onlyif: /bin/false
-  {%- endif %}
 
 maas_config:
   module.run:
   - name: maas.process_maas_config
   - require:
     - cmd: maas_login_admin
-  {%- if grains.get('kitchen-test') %}
-  - onlyif: /bin/false
-  {%- endif %}
 
 {% if region.get('boot_sources', False)  %}
   {%- for b_name, b_source in region.boot_sources.iteritems() %}
@@ -400,9 +371,6 @@ maas_package_repositories:
 #  - name: maas.process_domain
 #  - require:
 #    - cmd: maas_login_admin
-#  {%- if grains.get('kitchen-test') %}
-#  - onlyif: /bin/false
-#  {%- endif %}
 
 {%- if region.get('sshprefs', False)  %}
 {%- for sshkey in region.sshprefs %}
