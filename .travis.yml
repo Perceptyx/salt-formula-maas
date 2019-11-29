@@ -20,9 +20,9 @@ addons:
   apt:
     packages:
     - apt-transport-https
+    - git
 
 install:
-  - apt-get install git
   - |
     if [ ! -e Gemfile ]; then
        curl -s -o ./Gemfile 'https://raw.githubusercontent.com/salt-formulas/salt-formulas-scripts/master/Gemfile'
