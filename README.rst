@@ -594,15 +594,6 @@ MAAS service power_parameters defintion with OpenStack Nova power_type:
               os_password: password
               os_authurl: http://url
 
-Test pillars
-==============
-
-Mind the PostgreSQL and rsyslog ``.sls``. Database and
-syslog service are required for MAAS to properly install
-and work.
-
-* https://github.com/salt-formulas/salt-formula-rsyslog/tree/master/tests/pillar
-
 
 Module function's example:
 ==========================
@@ -692,4 +683,3 @@ Documentation and Bugs
 * #salt-formulas @ irc.freenode.net
    Use this IRC channel in case of any questions or feedback which is always
    welcome
-

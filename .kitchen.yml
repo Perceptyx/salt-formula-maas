@@ -17,21 +17,18 @@ provisioner:
   state_top:
     base:
       "*":
-#        - rsyslog
         - postgresql
         - maas
   pillars:
     top.sls:
       base:
         "*":
-#          - rsyslog
           - postgresql
           - linux
           - maas
 
   pillars-from-files:
     postgresql.sls: tests/pillar/postgresql.sls
-#    rsyslog.sls: tests/pillar/rsyslog.sls
     linux.sls: tests/pillar/linux.sls
 
   grains:
@@ -42,9 +39,9 @@ provisioner:
     - name: postgresql
       repo: git
       source: https://github.com/salt-formulas/salt-formula-postgresql
-    - name: rsyslog
+    - name: linux
       repo: git
-      source: https://github.com/salt-formulas/salt-formula-rsyslog
+      source: https://github.com/salt-formulas/salt-formula-linux
 
 platforms:
   - name: <%=ENV['PLATFORM'] ||  'ubuntu-18.04' %>
@@ -55,10 +52,7 @@ verifier:
   name: inspec
   sudo: true
 
-
 suites:
-
-
   - name: maas_cluster
     provisioner:
       pillars-from-files:
@@ -74,9 +68,9 @@ suites:
       #pillars-from-files:
         #maas.sls: tests/pillar/maas_mirror.sls
 
-#  - name: maas_region
-#    provisioner:
-#      pillars-from-files:
-#        maas.sls: tests/pillar/maas_region.sls
+  - name: maas_region
+    provisioner:
+      pillars-from-files:
+        maas.sls: tests/pillar/maas_region.sls
 
 # vim: ft=yaml sw=2 ts=2 sts=2 tw=125

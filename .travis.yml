@@ -22,7 +22,7 @@ addons:
     - apt-transport-https
 
 install:
-  - pip install PyYAML
+  - apt-get install git
   - |
     if [ ! -e Gemfile ]; then
        curl -s -o ./Gemfile 'https://raw.githubusercontent.com/salt-formulas/salt-formulas-scripts/master/Gemfile'
